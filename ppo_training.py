@@ -1,5 +1,5 @@
 import os
-from time import time
+import time
 import torch
 import gymnasium as gym                  # 导入gym库,用于创建环境
 import numpy as np          # 导入numpy库,用于数值计算
@@ -44,14 +44,14 @@ for episode_i in range(NUM_EPISODES):  # 遍历训练的轮数
     episode_reward = 0  # 初始化当前轮的奖励为0
 
     for step_i in range(NUM_STEPS):  # 在每轮中,智能体与环境交互NUM_STEPS步
-        action,value = agent.get_action(state) 
+        action,value = agent.get_action(state)                                                          # DONE
          # get_action()方法根据当前状态state返回动作action和状态值value  
          # value是Critic网络的输出,用于评估动作的价值估计,即当前状态未来奖励的预估总和
         next_state, reward, done, _ = env.step(action)  # 执行动作,获取下一状态,奖励,是否结束等信息
         # step()方法执行动作action,返回下一状态next_state,奖励reward,是否结束done,其他信息_等信息
         episode_reward += reward  # 累积奖励
         done = True if step_i == NUM_STEPS - 1 else False  # 如果达到最大步骤数,则强制结束当前轮
-        agent.replay_buffer.add_memory(state, action, reward, value, done)  
+        agent.replay_buffer.add_memory(state, action, reward, value, done)                              # DONE
         # 将当前状态state、动作action、奖励reward、状态值value和是否结束done添加到智能体的回放缓冲区中
         state = next_state # 更新状态为下一状态
  
